@@ -1,0 +1,25 @@
+{
+  "name": "postit-notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdingman/postIT-Notes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdingman/postIT-Notes/issues"
+  },
+  "homepage": "https://github.com/kdingman/postIT-Notes#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "uniqid": "^5.4.0"
+  }
+}
