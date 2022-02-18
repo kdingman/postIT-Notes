@@ -6,6 +6,8 @@ const fs = require('fs');
 const app = express();
 
 // API Routes
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
 // PORT set up
 const PORT = process.env.PORT || 3001;
@@ -15,10 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
-// Unique ID
-const uniqid = require('uniqid');
+// Use apiRoutes
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
-
+// Listner
 app.listen(PORT, () => {
     console.log(`postIts-Notes server is ready on port ${PORT}!`);
 });
