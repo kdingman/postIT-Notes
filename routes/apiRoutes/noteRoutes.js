@@ -20,11 +20,30 @@ router.post('/api/notes', (req, res) => {
     
     fs.writeFile('/db/db.json', JSON.stringify(savedNote), (err) => {
         if(err) {
-            res.status(400).send("Please enter a note.");
+            res.status(400).send("Oops, something didn't go right.");
             return;
         }
         else {
-            console.log("Note saved.")
+            console.log("YEAH! Note has been saved.")
+        }
+    });
+        res.json(true);
+});
+
+router.delete('/api/notes/:id', (req, res) => {
+
+    const savedNoteId = req.params.id;
+
+    savedNote = savedNote.filter((notes, index) => {
+        console.log(index)
+        return savedNote !== notes.id;
+    });
+    fs.writeFile('/db/db.json', JSON.stringify(savedNote), (err) => {
+        if(err)
+            res.status(400).send("Oops, something didn't go right.");
+        
+        else {
+            console.log("Success, note was deleted.");
         }
     });
         res.json(true);
