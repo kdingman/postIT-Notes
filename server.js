@@ -8,8 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // API Routes
-const apiRoutes = require('./routes/apiRoutes/noteRoutes');
-const htmlRoutes = require('./routes/htmlRoutes/index');
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));

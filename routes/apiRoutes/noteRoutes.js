@@ -32,7 +32,7 @@ router.post('/notes', (req, res) => {
 });
 
 // delete the note via the id number
-router.delete('/notes/:id', (req, res) => {
+router.delete('notes/:id', (req, res) => {
 
     const newPostId = req.params.id;
 
