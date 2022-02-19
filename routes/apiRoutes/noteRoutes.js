@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const path = require('path');
+// const path = require('path');
 const fs = require('fs');
 
 let newPost  = require('../../Develop/db/db.json');
