@@ -2,14 +2,14 @@ const router = require('express').Router();
 const path = require('path');
 const fs = require('fs');
 
-let noteData  = require('../../Develop/db/db.json');
+let newPost  = require('../../Develop/db/db.json');
 
 // Unique ID creator
 const { v4: uuidv4 } = require('uuid');
 
 // GET request
 router.get('/notes', (req, res) => {
-    res.json(noteData)
+    res.json(newPost)
 });
 
 // POST Request
@@ -18,11 +18,11 @@ router.post('/notes', (req, res) => {
     // creating a unique id for the note
     data.id = uuidv4(data.id);
 
-    noteData.push(data);
+    newPost.push(data);
     
-    fs.writeFile('/db/db.json', JSON.stringify(noteData), (err) => {
+    fs.writeFile('Develop/db/db.json', JSON.stringify(newPost), (err) => {
         if(err) {
-            res.status(400).send("Oops, something didn't go right.");
+            console.log("Oops, something didn't go right.");
         }
         else {
             console.log("YEAH! Note has been saved.")
@@ -34,21 +34,21 @@ router.post('/notes', (req, res) => {
 // delete the note via the id number
 router.delete('/notes/:id', (req, res) => {
 
-    const noteDataId = req.params.id;
+    const newPostId = req.params.id;
 
-    noteData = noteData.filter((notes, index) => {
+    newPost = newPost.filter((notes, index) => {
         console.log(index)
-        return noteDataId !== notes.id;
+        return newPostId !== notes.id;
     });
-    fs.writeFile('/db/db.json', JSON.stringify(noteData), (err) => {
+    fs.writeFile('Develop/db/db.json', JSON.stringify(newPost), (err) => {
         if(err)
-            res.status(400).send("Oops, something didn't go right.");
+            console.log("Oops, something didn't go right.");
         
         else {
             console.log("Success, note was deleted.");
         }
     });
-        res.json(noteData);
+        res.json(newNote);
 });
 
 module.exports = router;
