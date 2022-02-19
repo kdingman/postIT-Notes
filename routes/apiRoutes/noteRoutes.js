@@ -48,7 +48,7 @@ router.delete('/notes/:id', (req, res) => {
             console.log("Success, note was deleted.");
         }
     });
-        res.json(newNote);
+        res.json(newPost);
 });
 
 module.exports = router;
