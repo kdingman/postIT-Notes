@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const path = require('path');
 const fs = require('fs');
 
 let noteData  = require('../../Develop/db/db.json');
@@ -8,14 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 
 // GET request
 router.get('/notes', (req, res) => {
-    let results = noteData;
-
-    if(results) {
-        res.json(results);
-    }
-    else {
-        res.send(404);
-    }
+    res.json(noteData)
 });
 
 // POST Request
@@ -34,9 +28,10 @@ router.post('/notes', (req, res) => {
             console.log("YEAH! Note has been saved.")
         }
     });
-        res.json(true);
+        res.json(data);
 });
 
+// delete the note via the id number
 router.delete('/notes/:id', (req, res) => {
 
     const noteDataId = req.params.id;
@@ -53,7 +48,7 @@ router.delete('/notes/:id', (req, res) => {
             console.log("Success, note was deleted.");
         }
     });
-        res.json(true);
+        res.json(noteData);
 });
 
 module.exports = router;

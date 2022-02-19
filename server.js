@@ -1,16 +1,15 @@
 // Dependencies
 const express = require('express');
-const fs = require('fs');
 
 // Create the express server
 const app = express();
 
+// PORT set up
+const PORT = process.env.PORT || 3001;
+
 // API Routes
 const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
-
-// PORT set up
-const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
