@@ -3,10 +3,11 @@ const fs = require('fs');
 
 const savedNote = require('../../Develop/db/db.json');
 
+// Unique ID creator
 const { v4: uuidv4 } = require('uuid');
 
 // GET request
-router.get('/notes', (req, res) => {
+router.get('/api/notes', (req, res) => {
     res.json(savedNote);
 });
 
@@ -36,7 +37,7 @@ router.delete('/api/notes/:id', (req, res) => {
 
     savedNote = savedNote.filter((notes, index) => {
         console.log(index)
-        return savedNote !== notes.id;
+        return savedNoteId !== notes.id;
     });
     fs.writeFile('/db/db.json', JSON.stringify(savedNote), (err) => {
         if(err)
