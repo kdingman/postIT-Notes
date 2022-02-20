@@ -41,7 +41,7 @@ router.delete('notes/:id', (req, res) => {
 
     if(appears) {
         notes = notes.filter(note => note.id !== req.params.id);
-        fs.writeFile(path.join(__dirname, '../../db/db.json'), JSON.stringify({ notes }, null, 2));
+        fs.writeFileSync(path.join(__dirname, 'db/db.json'), JSON.stringify({ notes }, null, 2));
         res.json(notes);
     }
     else {
