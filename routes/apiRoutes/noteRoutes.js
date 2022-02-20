@@ -34,16 +34,4 @@ router.post('/notes', (req, res) => {
     }
 });
 
-// delete the note via the id number
-router.delete('notes/:id', (req, res) => {
-
-    let db = JSON.parse(fs.readFileSync('db/db.json'))
-
-    let deleteNotes = db.filer(item => item.id !== req.params.id);
-
-    fs.writeFileSync('db/db.json', JSON.stringify(deleteNotes));
-
-    res.json(deleteNotes);
-});
-
 module.exports = router;
