@@ -2,53 +2,50 @@ const router = require('express').Router();
 // const path = require('path');
 const fs = require('fs');
 
-let newPost  = require('../../Develop/db/db.json');
+const { notes } = require('../../Develop/db/db.json');
+
+const { validateNote, addNewPost } = require('../../Develop/validateNote');
 
 // Unique ID creator
 const { v4: uuidv4 } = require('uuid');
 
 // GET request
 router.get('/notes', (req, res) => {
-    res.json(newPost)
+    res.json(notes)
 });
 
 // POST Request
 router.post('/notes', (req, res) => {
-    const data = req.body;
-    // creating a unique id for the note
-    data.id = uuidv4(data.id);
+    const newPost = {
+        id: uuidv4(),
+        title: req.body.title,
+        text: req.body.text
+    }
+    if(!validateNote(newPost)) {
 
-    newPost.push(data);
-    
-    fs.writeFile('Develop/db/db.json', JSON.stringify(newPost), (err) => {
-        if(err) {
-            console.log("Oops, something didn't go right.");
-        }
-        else {
-            console.log("YEAH! Note has been saved.")
-        }
-    });
-        res.json(data);
+        return res.status(400).send("You must have a title and text to create.")
+    }
+    else {
+        addNewPost(newPost, notes);
+        res.json(notes);
+    }
 });
 
 // delete the note via the id number
 router.delete('notes/:id', (req, res) => {
 
-    const newPostId = req.params.id;
+    const appears = notes.some(notes => notes.id === req.params.id);
 
-    newPost = newPost.filter((notes, index) => {
-        console.log(index)
-        return newPostId !== notes.id;
-    });
-    fs.writeFile('Develop/db/db.json', JSON.stringify(newPost), (err) => {
-        if(err)
-            console.log("Oops, something didn't go right.");
-        
-        else {
-            console.log("Success, note was deleted.");
-        }
-    });
-        res.json(newPost);
+    if(appears) {
+        notes = notes.filter(note => note.id !== req.params.id);
+        fs.writeFile(path.join(__dirname, '../../Develop/db/db.json'), JSON.stringify({
+            notes
+        }, null, 2))
+        res.json(notes);
+    }
+    else {
+        res.status(400).send("No note found.")
+    }
 });
 
 module.exports = router;
