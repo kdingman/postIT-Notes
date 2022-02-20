@@ -37,16 +37,13 @@ router.post('/notes', (req, res) => {
 // delete the note via the id number
 router.delete('notes/:id', (req, res) => {
 
-    const appears = notes.some(notes => notes.id === req.params.id);
+    let db = JSON.parse(fs.readFileSync('db/db.json'))
 
-    if(appears) {
-        notes = notes.filter(note => note.id !== req.params.id);
-        fs.writeFileSync(path.join(__dirname, 'db/db.json'), JSON.stringify({ notes }, null, 2));
-        res.json(notes);
-    }
-    else {
-        res.status(400).send("No note found.");
-    }
+    let deleteNotes = db.filer(item => item.id !== req.params.id);
+
+    fs.writeFileSync('db/db.json', JSON.stringify(deleteNotes));
+
+    res.json(deleteNotes);
 });
 
 module.exports = router;

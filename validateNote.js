@@ -18,7 +18,7 @@ const addNewNote = (newNote, notes) => {
 
     notes.push(newNote);
 
-    fs.writeFileSync(path.join(__dirname, 'db/db.json'), JSON.stringify({ notes }, null, 2));
+    fs.writeFileSync(path.join(__dirname, 'db/db.json'), JSON.stringify({notes}, null, 2));
         return notes;
 };
 
