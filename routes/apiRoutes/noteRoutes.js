@@ -3,10 +3,10 @@ const path = require('path');
 const fs = require('fs');
 
 //  where the notes will be stored
-let { notes } = require('../../Develop/db/db.json');
+let { notes } = require('../../db/db.json');
 
 // validating text and title were added to add a new note
-const { validateNote, addNewNote } = require('../../Develop/validateNote');
+const { validateNote, addNewNote } = require('../../validateNote');
 
 // Unique ID creator
 const { v4: uuidv4 } = require('uuid');
@@ -41,7 +41,7 @@ router.delete('notes/:id', (req, res) => {
 
     if(appears) {
         notes = notes.filter(note => note.id !== req.params.id);
-        fs.writeFile(path.join(__dirname, '../../Develop/db/db.json'), JSON.stringify({ notes }, null, 2));
+        fs.writeFile(path.join(__dirname, '../../db/db.json'), JSON.stringify({ notes }, null, 2));
         res.json(notes);
     }
     else {

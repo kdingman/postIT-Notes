@@ -15,10 +15,10 @@ const validateNote = newNote => {
 
 // adding the new note
 const addNewNote = (newNote, notes) => {
-    
+
     notes.push(newNote);
 
-    fs.writeFile(path.join(__dirname, '../../Develop/db/db.json'), JSON.stringify({ notes }, null, 2));
+    fs.writeFileSync(path.join(__dirname, '../../db/db.json'), JSON.stringify({ notes }, null, 2));
         return notes;
 };
 
