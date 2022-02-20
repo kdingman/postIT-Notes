@@ -1,10 +1,12 @@
 const router = require('express').Router();
-// const path = require('path');
+const path = require('path');
 const fs = require('fs');
 
-const { notes } = require('../../Develop/db/db.json');
+//  where the notes will be stored
+let { notes } = require('../../Develop/db/db.json');
 
-const { validateNote, addNewPost } = require('../../Develop/validateNote');
+// validating text and title were added to add a new note
+const { validateNote, addNewNote } = require('../../Develop/validateNote');
 
 // Unique ID creator
 const { v4: uuidv4 } = require('uuid');
@@ -16,17 +18,18 @@ router.get('/notes', (req, res) => {
 
 // POST Request
 router.post('/notes', (req, res) => {
-    const newPost = {
+    // creating a unique id
+    const newNote = {
         id: uuidv4(),
         title: req.body.title,
         text: req.body.text
     }
-    if(!validateNote(newPost)) {
+    if(!validateNote(newNote)) {
 
-        return res.status(400).send("You must have a title and text to create.")
+        return res.status(400).send("You must have a title and text to create.");
     }
     else {
-        addNewPost(newPost, notes);
+        addNewNote(newNote, notes);
         res.json(notes);
     }
 });
@@ -38,13 +41,11 @@ router.delete('notes/:id', (req, res) => {
 
     if(appears) {
         notes = notes.filter(note => note.id !== req.params.id);
-        fs.writeFile(path.join(__dirname, '../../Develop/db/db.json'), JSON.stringify({
-            notes
-        }, null, 2))
+        fs.writeFile(path.join(__dirname, '../../Develop/db/db.json'), JSON.stringify({ notes }, null, 2));
         res.json(notes);
     }
     else {
-        res.status(400).send("No note found.")
+        res.status(400).send("No note found.");
     }
 });
 

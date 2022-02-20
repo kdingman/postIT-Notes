@@ -1,21 +1,25 @@
 const path = require('path');
 const fs = require('fs');
 
-const validateNote = newPost => {
+// Validate that title and text were entered.
+const validateNote = newNote => {
 
-    if(!newPost.title || typeof newPost.title !== 'string') {
+    if(!newNote.title || typeof newNote.title !== 'string') {
         return false;
     }
-    if(!newPost.text || typeof newPost.text !== 'string') {
+    if(!newNote.text || typeof newNote.text !== 'string') {
         return false;
     }
     return true;
 };
 
-const addNewPost = (newPost, notes) => {
-    notes.push(newPost);
+// adding the new note
+const addNewNote = (newNote, notes) => {
+    
+    notes.push(newNote);
+
     fs.writeFile(path.join(__dirname, '../../Develop/db/db.json'), JSON.stringify({ notes }, null, 2));
         return notes;
 };
 
-module.exports = { validateNote, addNewPost }
+module.exports = { validateNote, addNewNote }
